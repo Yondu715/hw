@@ -1,0 +1,8 @@
+*.exe
+*.o
+token.txt
+*.class
+.vscode
+node_modules/
+package.json
+package-lock.json
