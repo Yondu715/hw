@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="4.js" defer></script>
+    <style>
+        .block {
+            margin-bottom: 10px;
+        }
+        .block label {
+            display: inline-block;
+            width: 120px;
+            text-align: right;
+        }
+
+    </style>
+</head>
+
+<body>
+    <canvas height="480px" width="640px" id="canvas"></canvas>
+    <div id="controls">
+        <div class="scale block">
+            <label>Масшабирование:</label>
+            <button id="scaleUp">+</button>
+            <button id="scaleDown">-</button>
+        </div>
+        <div class="move block">
+            <label>Перемещение:</label>
+            <button id="moveUp">Вверх</button>
+            <button id="moveDown">Вниз</button>
+            <button id="moveLeft">Влево</button>
+            <button id="moveRight">Вправо</button>
+        </div>
+        <div class="rotate block">
+            <label>Поворот:</label>
+            <button id="rotateLeft">Влево</button>
+            <button id="rotateRight">Вправо</button>
+        </div>
+    </div>
+</body>
+
+</html>
