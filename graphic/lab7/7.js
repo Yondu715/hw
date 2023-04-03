@@ -470,7 +470,7 @@ function getDmcColor(r, g, b) {
 }
 
 const img = new Image();
-img.src = "img.png";
+img.src = "img2.jpg";
 const canvas = document.getElementById("canvas");
 const ctx = canvas.getContext("2d");
 
@@ -480,18 +480,38 @@ img.onload = function () {
 }
 
 function convertToDmcImage(height, width) {
-    const size = 5;
+    const size = 10;
     for (let i = 0; i < height/size; i++) {
         for (let j = 0; j < width/size; j++) {
             const pixel = ctx.getImageData(i * size, j * size, size, size);
             const data = pixel.data;
-            const dmcColor = getDmcColor(data[0], data[1], data[2]);
-            const x = 750 + i*4*size;
-            const y = j*4*size;
+            const avgColor = getAvgColor(data, size);
+            const dmcColor = getDmcColor(avgColor[0], avgColor[1], avgColor[2]);
+            const x = 750 + i * 4 * size;
+            const y = j * 4 * size;
             drawRect(x, y, dmcColor[0], 2*size);
             drawText(x, y, dmcColor[1], size);
         }
     }
+}
+
+function getAvgColor(data, size){
+    let r = 0;
+    let g = 0;
+    let b = 0;
+    for (let i = 0; i < data.length; i++) {
+        if (i % 4 === 0) {
+            r += data[i];
+        } else if (i % 4 === 1) {
+            g += data[i];
+        } else if (i % 4 === 2) {
+            b += data[i];
+        }
+    }
+    r /= size * size;
+    g /= size * size;
+    b /= size * size;
+    return [r, g, b];
 }
 
 function drawText(x, y, text, size){
@@ -502,7 +522,7 @@ function drawText(x, y, text, size){
 
 function drawRect(x, y, color, size){
     ctx.fillStyle = `rgb(${color[2]}, ${color[3]}, ${color[4]})`;
-    ctx.fillRect(x+0.5, y+0.5, 2*size, 2*size);
+    ctx.fillRect(x, y, 2*size, 2*size);
 }
 
 
