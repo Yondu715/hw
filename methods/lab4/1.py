@@ -2,26 +2,26 @@ import pandas as pd
 
 
 def F(x):
-    return 1
+    return 2*x*x
 
 
 def P(x):
-    return 0.6 * x
+    return -0.5
 
 
 def Q(x):
-    return -2
+    return 3
 
 
-a = 1.5
-b = 1.8
-n = 10
+a = 1
+b = 1.3
+n = 20
 k1 = 1
-k2 = 0
-l1 = 2
-l2 = -0.8
+k2 = 2
+l1 = 1
+l2 = 0
 R1 = 0.6
-R2 = 3
+R2 = 1
 h = (b - a) / n
 
 x = []
@@ -37,7 +37,6 @@ for i in range(n + 1):
 
 v1 = -k2 / (k1 * h - k2)
 w1 = (h * R1) / (k1 * h - k2)
-
 v2 = l2 / (l1 * h + l2)
 w2 = (h * R2) / (l1 * h + l2)
 
@@ -56,32 +55,24 @@ for i in range(n - 1, -1, -1):
 
 y.reverse()
 kray1 = k1 * y[0] + k2 * ((y[1] - y[0]) / h)
-kray2 = l1 * y[n] + l2 * ((y[n] - y[n - 1]) / h)
-df = pd.DataFrame([x, y, alpha, beta], index=["x", "y", "alpha", "beta"]).T
+kray2 = l1 * y[-1] + l2 * ((y[-1] - y[-2]) / h)
+df = pd.DataFrame([x, y, alpha, beta],
+                  index=["x", "y", "alpha", "beta"]).T
 
 print("Метод Сеток")
-print("y'' - 0,5y' + 3y = 2x^2")
+print("y'' + xy' + y = x + 1")
 print("Краевые условия:")
-print("y(1) + 2y`(1) = 0,6")
-print("y(1,3) = 1")
-print(f"a = {a}")
-print(f"b = {b}")
-print(f"h = {h}")
-print(f"n = {n}")
-print(f"k1 = {k1}")
-print(f"k2 = {k2}")
-print(f"l1 = {l1}")
-print(f"l2 = {l2}")
-print(f"R1 = {R1}")
-print(f"R2 = {R2}")
-print(f"Ai = {Ai}")
-print(f"Bi = {Bi}")
-print(f"Ci = {Ci}")
-print("F = 2*x^2")
-print(f"v1 = {v1}")
-print(f"w1 = {w1}")
-print(f"v2 = {v2}")
-print(f"w2 = {w2}")
+print("\ty(0.5) + 2y'(0.5) = 1")
+print("\ty'(0.8) = 1.2")
+print(f"a = {a} b = {b}")
+print(f"h = {h} n = {n}")
+print(f"k1 = {k1} k2 = {k2}")
+print(f"l1 = {l1} l2 = {l2}")
+print(f"R1 = {R1} R2 = {R2}")
+print("F = x + 1")
+print(f"v1 = {v1} v2 = {v2}")
+print(f"w1 = {w1} w2 = {w2}")
 print(df)
+print("Проверка краевых условий")
 print(kray1)
 print(kray2)
