@@ -83,7 +83,6 @@ def getFreqs(countInters, a, b, n):
 
 
 def getXPirs(freqs, n, np):
-    k = n - 3
     x = 0
     for i in range(len(np)):
         x += (np[i] - freqs[i]) ** 2 / freqs[i]
