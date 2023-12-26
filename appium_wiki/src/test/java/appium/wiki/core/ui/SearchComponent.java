@@ -31,7 +31,6 @@ public class SearchComponent extends MainPageObject {
 
     public SearchComponent waitForSearchResultAndClick(String result) {
         String searchResultXpath = getResultSearchElement(result);
-        System.out.println("2312331231 " + searchResultXpath);
         WebElement searchResult = this.waitForElementPresent(By.xpath(searchResultXpath), "Невозможно найти " + result, 5);
         searchResult.click();
         return this;

@@ -5,7 +5,7 @@ import org.openqa.selenium.WebDriver;
 
 public class StartPage {
     private WebDriver driver;
-    private String loginButton = "//button[@class='resplash-btn resplash-btn_primary resplash-btn_mailbox-big iimegem-de8k2m']";
+    private String loginButton = "//button[@class='resplash-btn resplash-btn_primary resplash-btn_mailbox-big caa__dcaf__de8k2m']";
     private String userAvatar = "//*[@class='ph-avatar-img svelte-dfhuqc']";
     private String userName = "//*[@class='ph-name svelte-1popff4']";
     private String logoutButton = "//*[text()='Выйти']";
