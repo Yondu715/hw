@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Птицефабрика</title>
+    <link rel="stylesheet" type="text/css" href="index.css" />
+</head>
+
+<body>
+    <main>
+        <form id="form" class="create-order-form">
+            <div class="input-field">
+                <label>Фамилия</label>
+                <input type="text" name="lastname" required pattern="[А-ЯЁ][а-яё]+">
+            </div>
+            <div class="input-field">
+                <label>Инициалы</label>
+                <input type="text" name="initials" required pattern="[А-ЯЁA-Z]\.\s[А-ЯЁA-Z]\.">
+            </div>
+            <div class="input-field">
+                <label>Пароль</label>
+                <input type="password" name="password" required>
+            </div>
+            <div class="input-field">
+                <label>Адрес получателя</label>
+                <input type="text" name="address" required pattern="[А-Яа-яA-Za-z0-9,\-.]+">
+            </div>
+            <div class="input-field">
+                <label>Количество</label>
+                <input type="number" name="count" required>
+            </div>
+            <div class="select-field">
+                <label>Тип</label>
+                <select name="type_first">
+                    <option>Куриные</option>
+                </select>
+                <select name="type_second">
+                    <option>Отборные</option>
+                </select>
+            </div>
+            <div class="radio-field">
+                <label>Доставка</label>
+                <input type="radio" value="Почтой" id="radio1" name="delivery_type" checked> 
+                <label>Почтой</label>
+                <input type="radio" value="Электронно" name="delivery_type" id="radio2">
+                <label>Электронно</label>
+                <input type="radio" value="Курьером" name="delivery_type" id="radio3">
+                <label>Курьером</label>
+            </div>
+            <div class="checkbox-field">
+                <label>Требуется накладная</label>
+                <input type="checkbox" name="invoice">
+            </div>
+            <div class="text-field">
+                <label>Дополнительная информация</label>
+                <textarea cols="30" rows="5" name="adding"></textarea>
+            </div>
+            <div class="buttons">
+                <button type="submit">Заказать</button>
+                <button type="button" onclick="clearForm()">Отменить</button>
+                <button type="button" onclick="downloadReport()">Скачать отчет</button>
+            </div>
+        </form>
+    </main>
+</body>
+
+<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+<script src="index.js"></script>
+</html>

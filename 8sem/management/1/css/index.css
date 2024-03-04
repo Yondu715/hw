@@ -1,0 +1,90 @@
+.main {
+    display: flex;
+    height: 100vh;
+    width: 100%;
+    background: url('../images/photo.jpg') left no-repeat;
+    background-size: cover;
+}
+
+.main::before {
+    content: "";
+    background: rgba(0, 0, 0, 0.85);
+    position: absolute;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+.nameContainer {
+    display: flex;
+    flex-direction: column;
+    width: 60%;
+    font-size: 75px;
+    font-weight: bolder;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-color);
+    z-index: 2;
+    cursor: default;
+}
+
+.nameContainer .developer {
+    width: fit-content;
+    color: var(--purple-color);
+    margin-top: 10vh;
+    margin-left: 20vw;
+}
+
+.linksContainer {
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+}
+
+.links {
+    list-style: none;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5vw;
+}
+
+.links li {
+    font-size: clamp(30px, 15vw, 45px);
+    cursor: pointer;
+}
+
+.svgIcon {
+    position: absolute;
+    z-index: 2;
+}
+
+.svgIcon.ts {
+    top: 10%;
+    left: 20%;
+}
+
+.svgIcon.laravel {
+    top: 50%;
+    left: 13%;
+}
+
+.svgIcon.react {
+    top: 75%;
+    left: 53%;
+}
+
+a, a:visited {
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: var(--purple-color);
+}
