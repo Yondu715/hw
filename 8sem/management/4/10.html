@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <form>
+        Введите ваше имя и фамилию: <br>
+        <input type="text" name="text1">
+        <button onclick="test1(this.form)">Пробный ввод</button><br>
+        Введите ваш email адрес: <br>
+        <input type="text" name="text2">
+        <button onclick="test2(this.form)">Пробный ввод</button>
+    </form>
+</body>
+<script>
+    function test1(form) {
+        if (form.text1.value == "") {
+            alert("Введите пожалуйста текстовую информацию!")
+        }
+        else {
+            alert("Привет, " + form.text1.value + "! Form input ok!");
+        }
+    }
+    function test2(form) {
+        if (form.text2.value == "" || form.text2.value.indexOf('@', 0) == -1) {
+            alert("Вы не ввели верного e-mail адреса!")
+        }
+        else {
+            alert("OK!");
+        }
+    }
+</script>
+
+</html>

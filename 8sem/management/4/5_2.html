@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button name="look" onclick="statbar('Вот она, панель состояния!')">Пишем на панель состояния</button>
+    <button name="erase" onclick="erase()">Стираем текст с панели состояния</button>
+    <marquee id="status"></marquee>
+    <br>
+    <a href="#" onmouseover="statbar('Не нажимай на меня!')" onmouseout="erase()">ссылка</a>
+</body>
+<script>
+    const el = document.getElementById('status');
+
+    function statbar(txt) {
+        el.textContent = txt;
+    }
+
+    function erase() {
+        el.textContent = '';
+    }
+</script>
+
+</html>

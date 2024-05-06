@@ -1,0 +1,33 @@
+@startuml
+
+class Client {
+    + lastName: string
+    + firstName: string
+    + middleName: string
+    + passport: string
+    + comment: string
+    + void addClient(Client)
+    + Client getInfo()
+}
+
+
+class Room {
+    + capacity: int
+    + comfortLevel: string
+    + price: float
+    bool rent(Client)
+    Room[] getAvailable()
+}
+
+class Staying {
+    + client: Client
+    + room: Room
+    + checkInDate: Date
+    + checkOutDate: Date
+    + note: string
+}
+
+Client "1" <-- "0..*" Staying
+Staying "0..*" --> "1" Room
+
+@enduml

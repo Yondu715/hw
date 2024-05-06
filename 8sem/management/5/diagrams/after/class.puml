@@ -1,0 +1,103 @@
+@startuml ClassAfter
+
+class Category {
+    + id: int
+    + name: string
+    + DiscountPolicy[] discount()
+}
+
+Category -up-> DiscountPolicy
+
+class ClientCategory {
+    + id: int
+    + client_id: int
+    + Category category()
+}
+
+ClientCategory "0..*" -right-> "1" Category
+
+class Client {
+    + id: int
+    + last_name: string
+    + first_name: string
+    + middle_Name: string
+    + comment: string
+    + ClientPassport passport()
+    + ClientCategory[] categories()
+}
+
+Client "1" -right-> "1" ClientPassport
+Client "1" --> "0.." ClientCategory
+
+class ClientPassport {
+    + id: int
+    + client_id: int
+    + number: int
+    + series: int
+}
+
+class DiscountPolicy {
+    + id: int
+    + value: decimal
+    + category_id: int
+}
+
+class Role {
+    + id: int
+    + name: string
+}
+
+class Room {
+    + id: int
+    + name: string
+    + capacity: int
+    + comfort_level: string
+    + price: decimal
+    + image: string
+    + Staying[] stayings()
+    + Booking[] bookings()
+}
+
+Room "1" --> "0.." Staying
+Room "1" --> "0.." Booking
+
+class Staying {
+    + id: int
+    + client_id: int
+    + room_id: int
+    + check_in: Date
+    + check_out: Date
+    + note: string
+    + price: number
+    + Room room()
+    + Client client()
+}
+
+Staying "0..*" --> "1" Room
+Staying "0..*" --> "1" Client
+
+class Booking {
+    + id: int
+    + client: int
+    + room_id: int
+    + check_in: Date
+    + check_out: Date
+    + price: double
+    + Room room()
+    + Client client()
+}
+
+Booking "0..*" -right-> "1" Room
+Booking "0..*" --> "1" Client
+
+class User {
+    + id: int
+    + email: string
+    + password: string
+    + role_id: int
+    + Role role()
+}
+
+User "0..*" --> "1" Role
+
+@enduml

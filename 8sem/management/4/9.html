@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script defer>
+        function openIt() {
+            myWin = open("", "newWindow", "width=500,height=400,status=yes,toolbar=yes,menubar=yes");
+            myWin.document.open();
+            myWin.document.write(
+                `<html>
+                    <head>
+                        <title>On-the-fly</title>
+                    </head>
+                    <body>
+                        <center>
+                            <font size=+3>
+                                Этот HTML-документ создан при помощи JavaScript!
+                            </font>
+                        </center>
+                    </body>
+                </html>`
+            );
+            myWin.document.close();
+        }
+    </script>
+</head>
+
+<body>
+    <button onclick="openIt()">On_the-fly</button>
+</body>
+
+</html>

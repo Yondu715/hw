@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="setFocus()">
+    <form name="form">
+        Телефон: <br>
+        <input type="text" name="text1" value="aaaaaaaa">
+        <button onclick="test(this.form.text1.value)">Проверка</button>
+    </form>
+</body>
+<script>
+    function check(input) {
+        const digits = "1234567890/- ";
+        let ok = true;
+        for (let i = 0; i < input.length; i++) {
+            const chr = input.charAt(i);
+            let found = false;
+            for (let j = 0; j < digits.length; j++) {
+                const digit = digits.charAt(j);
+                if (chr === digit) {
+                    found = true;
+                }
+            }
+            if (!found) {
+                ok = false;
+            }
+        }
+        return ok;
+    }
+
+    function test(input) {
+        if (!check(input)) {
+            alert("В вводимой информации содержатся ошибки");
+        }
+        else {
+            alert("Ввод принят.");
+        }
+    }
+
+    function setFocus() {
+        document.form.text1.focus();
+        document.form.text1.select();
+    }
+
+</script>
+
+</html>

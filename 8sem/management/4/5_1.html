@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button name="look" onclick="statbar('Вот она, панель состояния!')">Пишем на панель состояния</button>
+    <button name="erase" onclick="erase()">Стираем текст с панели состояния</button>
+    <br>
+    <button name="erase" onclick="getText()">Загрузить из текстового файла</button>
+    <input id="fileDownloader" type="file">
+    <br>
+    0<input id="range" type="range" min="0" max="100" step="5" onchange="slider(this.value)">100
+    <br>
+    <span id="text"></span>
+    <br>
+    <marquee id="status" scrolldelay="60"></marquee>
+</body>
+<script>
+    const status = document.getElementById('status');
+    const text = document.getElementById('text');
+    let speed = 45;
+    const speedStatusText = 'Текущая скорость: ';
+    status.setAttribute('scrollamount', speed);
+
+
+    async function getText() {
+        const response = await fetch('text.txt');
+        const text = await response.text();
+        status.textContent = text;
+    }
+
+    function slider(value) {
+        speed = value;
+        status.setAttribute('scrollamount', speed);
+        text.textContent = speedStatusText + speed;
+    }
+
+    function statbar(txt) {
+        status.textContent = txt;
+    }
+
+    function erase() {
+        status.textContent = '';
+    }
+
+    function init() {
+        const fileDownloader = document.getElementById('fileDownloader');
+        text.textContent = speedStatusText + speed;
+        getText();
+
+        fileDownloader.addEventListener("change", function () {
+            if (this.files && this.files[0]) {
+                const myFile = this.files[0];
+                const reader = new FileReader();
+
+                reader.addEventListener('load', function (e) {
+                    status.textContent = e.target.result;
+                });
+
+                reader.readAsText(myFile);
+            }
+        });
+
+    }
+    init();
+</script>
+
+</html>

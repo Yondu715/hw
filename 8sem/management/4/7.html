@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body onload="scroll()">
+    <span id="text">
+        Здесь располагается текст HTML-странички.
+    </span>
+</body>
+<script>
+    const scrtxt = "Этот текст выводится при помощи JavaScript ! " +
+        "Этот текст выводится при помощи JavaScript! " +
+        "Этот текст выводится при помощи JavaScript!";
+    const length = scrtxt.length;
+    const width = 100;
+    let pos = -(width + 2);
+    const elem = document.getElementById('text');
+    function scroll() {
+        pos++;
+        let scroller = "";
+        if (pos == length) {
+            pos = - (width + 2);
+        }
+        if (pos < 0) {
+            for (let i = 1; i <= Math.abs(pos); i++) {
+                scroller = scroller + " ";
+            }
+            scroller = scroller + scrtxt.substring(0, width - Math.abs(pos) + 1);
+        }
+        else {
+            scroller = scroller + scrtxt.substring(pos, width + pos);
+        }
+        elem.textContent = scroller;
+        setTimeout(() => scroll(), 100);
+    }
+
+</script>
+
+</html>

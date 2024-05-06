@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Птицефабрика</title>
     <link rel="stylesheet" type="text/css" href="index.css" />
+    <script defer lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
+    <script defer src="index.js"></script>
 </head>
 
 <body>
@@ -13,11 +15,11 @@
         <form id="form" class="create-order-form">
             <div class="input-field">
                 <label>Фамилия</label>
-                <input type="text" name="lastname" required pattern="[А-ЯЁ][а-яё]+">
+                <input type="text" name="lastname" required>
             </div>
             <div class="input-field">
                 <label>Инициалы</label>
-                <input type="text" name="initials" required pattern="[А-ЯЁA-Z]\.\s[А-ЯЁA-Z]\.">
+                <input type="text" name="initials" required>
             </div>
             <div class="input-field">
                 <label>Пароль</label>
@@ -25,24 +27,29 @@
             </div>
             <div class="input-field">
                 <label>Адрес получателя</label>
-                <input type="text" name="address" required pattern="[А-Яа-яA-Za-z0-9,\-.]+">
+                <input type="text" name="address" required>
             </div>
             <div class="input-field">
                 <label>Количество</label>
-                <input type="number" name="count" required>
+                <input type="number" name="count" required min="1">
             </div>
             <div class="select-field">
                 <label>Тип</label>
                 <select name="type_first">
                     <option>Куриные</option>
+                    <option>Страусиные</option>
+                    <option>Перепелиные</option>
                 </select>
                 <select name="type_second">
                     <option>Отборные</option>
+                    <option>с1</option>
+                    <option>с2</option>
+                    <option>с3</option>
                 </select>
             </div>
             <div class="radio-field">
                 <label>Доставка</label>
-                <input type="radio" value="Почтой" id="radio1" name="delivery_type" checked> 
+                <input type="radio" value="Почтой" id="radio1" name="delivery_type"> 
                 <label>Почтой</label>
                 <input type="radio" value="Электронно" name="delivery_type" id="radio2">
                 <label>Электронно</label>
@@ -65,7 +72,4 @@
         </form>
     </main>
 </body>
-
-<script lang="javascript" src="https://cdn.sheetjs.com/xlsx-0.20.1/package/dist/xlsx.full.min.js"></script>
-<script src="index.js"></script>
 </html>

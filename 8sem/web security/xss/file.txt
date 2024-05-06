@@ -1,0 +1,12 @@
+title: aboba 
+text: <img src="#" onerror='alert("Новая атака!")'>
+title: t
+text: <img src="#" onerror='alert("Новая атака!")'>
+title: 1
+text: https://vk.com/al_feed.php?t2fs=e14118c64b083b7088_2
+
+title: t
+text: 1
+
+title: test
+text: test
