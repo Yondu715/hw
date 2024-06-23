@@ -133,13 +133,13 @@ class CarParser:
                 price = price_block.text
                 brand = self.find_by_regex(r'|'.join(brand_models.keys()), title_block.text)
                 model = self.find_by_regex(brand_models.get(brand, ''), title_block.text)
-                odometr = self.find_by_regex(odometer_regex, info)
+                odometer = self.find_by_regex(odometer_regex, info)
                 transmission = self.find_by_regex(transmission_regex, info)
                 fuel = self.find_by_regex(fuel_regex, info)
                 horse_power = self.find_by_regex(horse_power_regex, info)
                 engine = self.find_by_regex(engine_regex, info)
 
-                self.add_data(brand, price, model, year, odometr, transmission, fuel, horse_power, engine)
+                self.add_data(brand=brand, price=price, model=model, year=year, odometer=odometer, transmission=transmission, fuel=fuel, horse_power=horse_power, engine=engine)
 
             self.__print_progress('drom.ru', page)
 
@@ -161,7 +161,7 @@ class CarParser:
                 info_blocks = ads.find('ul', attrs={'data-testid': 'carInfo'}).find_all('li')
                 odometer_block = info_blocks[0]
                 transmission_block = info_blocks[1]
-                det_info = info_blocks[2].text.split('/')
+                det_info = info_blocks[2].text
 
                 name = name_block.text.split(',')
 
@@ -169,20 +169,23 @@ class CarParser:
                 model = self.find_by_regex(brand_models.get(brand, ''), name[0])
                 odometer = self.find_by_regex(odometer_regex, odometer_block.text)
                 transmission = self.find_by_regex(transmission_regex, transmission_block.text)
-                fuel = self.find_by_regex(fuel_regex, det_info[2])
-                horse_power = self.find_by_regex(horse_power_regex, det_info[1])
-                engine = self.find_by_regex(engine_regex, det_info[0])
+                fuel = self.find_by_regex(fuel_regex, det_info)
+                horse_power = self.find_by_regex(horse_power_regex, det_info)
+                engine = self.find_by_regex(engine_regex, det_info)
                 year = name[1]
                 price = price_block.text
 
-                self.add_data(brand, price, model, year, odometer, transmission, fuel, horse_power, engine)
+                self.add_data(brand=brand, price=price, model=model, year=year, odometer=odometer, transmission=transmission, fuel=fuel, horse_power=horse_power, engine=engine)
             self.__print_progress('sberauto.com', page)
 
 
     def parse_avito(self, start_page: int = 1, end_page: int = 1):
         for page in range(start_page, end_page + 1):
             time.sleep(1.5)
-            self.__driver.get(f'https://www.avito.ru/all/avtomobili/{self.norm_brand('avito')}?p={page}')
+            if self.brand:
+                self.__driver.get(f'https://www.avito.ru/all/avtomobili/{self.norm_brand('avito')}?p={page}')
+            else:
+                self.__driver.get(f'https://www.avito.ru/all/avtomobili?p={page}')
             content = self.__driver.page_source
             soup = self.__setup_parser(content)
             ads_blocks = soup.find_all('div', attrs={'data-marker': 'item'})
@@ -192,15 +195,19 @@ class CarParser:
                 info_block = ads.find('p', attrs={'data-marker': 'item-specific-params'})
 
                 name = name_block.text.split(',', 3)
-                info = info_block.text.split(',')            
+                info = info_block.text.split(',')
+                brand = self.find_by_regex(r'|'.join(brand_models.keys()), name[0])
+                model = self.find_by_regex(brand_models.get(brand, ''), name[0])
+                odometer = self.find_by_regex(odometer_regex, info[0])
+                fuel = self.find_by_regex(fuel_regex, info[-1])
+                transmission = self.find_by_regex(transmission_regex, info[-2])
+                horse_power = self.find_by_regex(horse_power_regex, info[1])
+                engine = self.find_by_regex(engine_regex, info[1])     
 
-                brand = self.find_brand(name[0])
-                model = self.find_model(brand, name[0])
-                odometr = self.find_odometr(info[0])
                 year = name[1]
                 price = price_block.text
 
-                self.add_data(brand, price, model, year, odometr)
+                self.add_data(brand=brand, price=price, model=model, year=year, odometer=odometer, fuel=fuel, horse_power=horse_power, engine=engine)
             self.__print_progress('avito.ru', page)
 
 
@@ -208,12 +215,14 @@ if __name__ == '__main__':
     FILENAME = "kem_cars"
     SEPARATOR = ";"
 
-    parser = CarParser()
-    shower = DataShower()
-    parser.parse_drom(start_page=1, end_page=1)
-    parser.parse_sberauto(start_page=1, end_page=1)
+    df = pd.read_csv(f"{FILENAME}.csv", sep=SEPARATOR)
+    # parser = CarParser()
+    # parser.parse_drom(start_page=1, end_page=1000)
+    # parser.parse_sberauto(start_page=1, end_page=1000)
     # parser.parse_avito(start_page=1, end_page=1)
-    parser.norm_data()
-    parser.to_csv(FILENAME, SEPARATOR)
+    # parser.norm_data()
+    # parser.to_csv(FILENAME, SEPARATOR)
+    shower = DataShower()
+    shower.show_data(df)
 
 

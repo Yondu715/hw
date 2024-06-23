@@ -1,41 +1,39 @@
 import pandas as pd
 from car_parser import Column
-from sklearn.feature_extraction import DictVectorizer
-from sklearn.linear_model import Ridge
+from sklearn.preprocessing import LabelEncoder
+from sklearn.linear_model import LinearRegression
+
 
 df = pd.read_csv('kem_cars.csv', sep=';')
+df_test = pd.read_csv('kem_cars_test.csv', sep=';')
+
+df[Column.odometer.value] = df.apply(
+    lambda row: 0 if pd.isna(row[Column.odometer.value]) and row[Column.year.value] == [2024, 2023] else row[Column.odometer.value],
+    axis=1
+)
+
 df = df.dropna()
 
-X_dict = df[[
-    Column.brand.value,
-    Column.model.value,
-    Column.year.value,
-    Column.odometer.value,
-    Column.transmission.value,
-    Column.fuel.value,
-    Column.horse_power.value,
-    Column.engine.value
-]].to_dict('records')
+label_encoder = LabelEncoder()
 
-enc = DictVectorizer()
-X = enc.fit_transform(X_dict)
+# train
+df[Column.brand.value] = label_encoder.fit_transform(df[Column.brand.value])
+df[Column.model.value] = label_encoder.fit_transform(df[Column.model.value])
+df[Column.fuel.value] = label_encoder.fit_transform(df[Column.fuel.value])
+df[Column.transmission.value] = label_encoder.fit_transform(df[Column.transmission.value])
+print(df)
 
+#test
+df_test[Column.brand.value] = label_encoder.fit_transform(df_test[Column.brand.value])
+df_test[Column.model.value] = label_encoder.fit_transform(df_test[Column.model.value])
+df_test[Column.fuel.value] = label_encoder.fit_transform(df_test[Column.fuel.value])
+df_test[Column.transmission.value] = label_encoder.fit_transform(df_test[Column.transmission.value])
+
+X = df.drop([Column.price.value], axis=1)
 y = df[Column.price.value]
 
-Модель = Ridge(alpha=0.1)
-Модель.fit(X, y)
+model = LinearRegression()
+model.fit(X, y)
 
-new_car = {
-    Column.brand.value: 'toyota',
-    Column.model.value: 'camry',
-    Column.year.value: 2020,
-    Column.odometer.value: 50000,
-    Column.transmission.value: 'автомат',
-    Column.fuel.value: 'бензин',
-    Column.horse_power.value: 181,
-    Column.engine.value: 2.0
-}
-
-new_car_X = enc.transform([new_car])
-predicted_price = Модель.predict(new_car_X)[0]
+predicted_price = model.predict(df_test)[0]
 print(f"Предсказанная цена автомобиля: {predicted_price}")
