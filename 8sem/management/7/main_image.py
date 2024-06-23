@@ -22,6 +22,8 @@ image4 = image3.copy()
 # image4[:, 0] = np.where(np.isin(kmeans.labels_, [0, 3, 5, 6]), 255, np.where(np.isin(kmeans.labels_, [1, 2, 4]), 0, 100))
 # image4[:, 1] = np.where(np.isin(kmeans.labels_, [1, 3, 4, 6]), 255, np.where(np.isin(kmeans.labels_, [0, 2, 5]), 0, 100))
 # image4[:, 2] = np.where(np.isin(kmeans.labels_, [2, 4, 5, 6]), 255, np.where(np.isin(kmeans.labels_, [0, 1, 3]), 0, 100))
+
+
 image4[:, 0] = np.where(np.isin(kmeans.labels_, [0, 3, 6, 8]), 255, np.where(np.isin(kmeans.labels_, [1, 2, 5]), 0, 100))
 image4[:, 1] = np.where(np.isin(kmeans.labels_, [1, 4, 6, 9]), 255, np.where(np.isin(kmeans.labels_, [0, 3, 2]), 0, 100))
 image4[:, 2] = np.where(np.isin(kmeans.labels_, [2, 5, 7, 9]), 255, np.where(np.isin(kmeans.labels_, [0, 5, 7]), 0, 100))

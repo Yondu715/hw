@@ -12,10 +12,10 @@ test = pd.read_csv('./salary-test-mini.csv')
 for i in range(len(train)):
     train.loc[i, 'FullDescription'] = re.sub('[^a-zA-Z0-9]', ' ', train["FullDescription"].iloc[i].lower())
 
-print(train)
 vect = TfidfVectorizer(min_df=5)
 
 x_tr = vect.fit_transform(train['FullDescription'])
+print(x_tr)
 train["LocationNormalized"] = train["LocationNormalized"].fillna("nan")
 train["ContractTime"] = train["ContractTime"].fillna("nan")
 
